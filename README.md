@@ -2,20 +2,28 @@
 Senzor požara i koncentracije alkohola u industriji.
 
 1.	Uvod
+
+
 Senzor požara i koncentracije alkohola u industriji
 Ovaj senzor se koristi u industriji alkohola npr. vinarija, pivara, kao i ostalih fabrika za proizvodnju proizvoda koji sadrže alkohol. 
 Program za očitavanje vrednosti  temperature i koncentracije alkohola sa RTC senzora temperature i MQ-3 senzora gasa se upisuje u memoriju Waspmote v1.1 razvojnog sistema i izvršava na istom.
 
 2.	Analiza problema
+
+
 Glavni cilj jeste konstantno očitavanje vrednosti temperature i koncentracije alkohola i dati nam doznanje o situaciji u prostoriji fabrike proizvodnje ili skladištu.
 Ukoliko senzor detektuje povišenu vrednost u odnosu na uobičajenu, potrebno je upaliti alarm u vidu ispisa poruke upozorenja, blinkati crvenom LED diodom i upisati datum i vreme u EEPROM memoriju.
 Za normalna očitavanja će se regularno ispisivati vrednost temperature i koncentracije alkohola i blinkati zelenom LED diodom.
 
 3.	Povezivanje mikrokontrolera sa PC računarom
+
+
 Povezivanje vršimo putem mini USB porta na razvojnom sistemu
 Pre povezivanja potrebno je instalirati potrebne drajvere za komunikaciju putem COM porta.
 
-4.	Detaljan opis svih komponenata uređaja.
+4.	Detaljan opis svih komponenata uređaja
+
+
 Za ovaj problem koristimo Waspmote razvojni sistem.
 Waspmote je „open-source“ bežična senzorska platforma osmišljena radi implementacije senzorskih čvorova niske potrošnje u IoT platformi. Platforma je kompletno autonomna i napaja se iz baterijskog izvora...
 Poseduje mogućnost više tipova komunikacije, kao što su GPRS, GSM, WiFi, BlueTooth... 
@@ -70,13 +78,19 @@ Paljenje i gašenje crvene diode izvršavamo sledećim kodom:
 Ukoliko želimo simulirati blinkanje, to činimo ubacivanjem for petlje i delay-ova u kod. 
 
 5.	Koncept rešenja
+
+
 Da bi se pristupilo zadatku, prva stvar koju treba uraditi je povezati eksterne senzore na mikrokontroler. U našem slučaju RTC je već integrisan, dok MQ-3 senzor gasa povezujemo kao što je u opisu komponenata prikazano. Nakon toga počinjemo sa ispisom koda u razvojnom okruženju Wasp IDE koji će se izvršavati na našem mikrokontroleru. Kod pišemo u programu za upravljanje Waspmote mikrokontrolerom, kompajlujemo i spuštamo na isti.
 Kod se sastoji iz setup() i void () zaglavlja. U setup-u inicijalizujemo komunikaciju sa PC računarom pomoću USB porta koje nam omogućuje spuštanje koda na mikrokontroler. Kada se USB koristi za komunikaciju preko UART0, čip FT232RL radi konverziju na USB standard. Pored inicijalizacije komunikacije preko USB-a, palimo i sve senzore koje koristimo, u ovom slučaju palimo i RTC.
 Nakon inicijalizacije svih komponenti, potrebno je definisati i promenljive koje ćemo koristiti za izradu koda. Naime želimo da na svake 3 sekunde bude ispisan rezultat sa stanjem temperature i koncentracije alkohola i dok su vrednosti uobičajene, blinkaće zelena LED dioda. U suprotnom, upalićemo alarm u vidu ispisa na UART, datum i vreme detektovanja ćemo upisati u EEPROM i ispisati, takođe ćemo upaliti brzo blinkanje crvenog LED-a.
 Kod programa se može naći na kraju dokumentacije.
 
 7.	Zaključak
+
+
 Konstantno merenje ključnih vrednosti u preduzećima navedenih u uvodu nam omogućuje veću kontrolu situacije. Samim tim možemo i predvideti havariju ukoliko vidimo postepeno povećavanje merenih vrednosti i sprečiti potencijalnu. Mikrokontroler sa navedenim senzorima i upisanim programom bi se instalirao u prostorijjama tipa sale za proizvodnju, skladišta i ostalih gde se radi sa zapaljivom supstancom.
 
 8.	Literatura
+
+
 Literatura korišćena za izradu dokumentacije je sadržana u prezentacijama laboratorijskih vežbi.
