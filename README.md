@@ -73,8 +73,10 @@ Paljenje i gašenje zelene diode izvršavamo sledećim kodom:
         Utils.setLED(LED1, LED_ON);
         Utils.setLED(LED1, LED_OFF);
 Paljenje i gašenje crvene diode izvršavamo sledećim kodom:
+
         Utils.setLED(LED0, LED_ON);
         Utils.setLED(LED0, LED_OFF);
+       
 Ukoliko želimo simulirati blinkanje, to činimo ubacivanjem for petlje i delay-ova u kod. 
 
 5.	Koncept rešenja
