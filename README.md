@@ -27,7 +27,9 @@ Pre povezivanja potrebno je instalirati potrebne drajvere za komunikaciju putem 
 Za ovaj problem koristimo Waspmote razvojni sistem.
 Waspmote je „open-source“ bežična senzorska platforma osmišljena radi implementacije senzorskih čvorova niske potrošnje u IoT platformi. Platforma je kompletno autonomna i napaja se iz baterijskog izvora...
 Poseduje mogućnost više tipova komunikacije, kao što su GPRS, GSM, WiFi, BlueTooth... 
+
 Tehnička specifikacija (obavezno proučiti pre povezivanja waspmote-a):
+
 Minimalni radni napon povezanog baterijskog  izvora: 3V3
 Maksimalni radni napon povezanog baterijskog izvora: 4V2
 USB napon punjenja baterije: 5V
@@ -39,44 +41,56 @@ USB napajanje: 7V
 Napon napunjene baterije: 4V2
 
 Kopmonente koje se koriste u ovom programu su RTC senzor i MQ-3 senzor gasa.
+
 RTC(Real Time Clock) je elektronski sklop najčešće u vidu integrisanog kola koji meri vreme. RTC je prisutan u gotovo svim elektronskim uređajima koji imaju potrebu da prikazuju tačno vreme. U ovom programu RTC ima ulogu da ispiše datum i vreme očitanih vrednosti. RTC senzor se takodje koristi za očitavanje temperature.
 Karakteristike RTC-a:
+
 - realizovan kao zaseban sklop koji vodi računa isključivo o funkciji merenja vremena, njegov klok se ne opterećuje raznim prekidima i izvršavanjem programabilnog koda kao što to čini standardni mikrokontroler.
 - ima zaseban baterijski izvor koji mu omogućuje da i nakon prekida napajanja ostatka sklopa i dalje nastavi sa radom
 - izuzetno niska potrošnja, koja obezbređuje da uz novčić bateriju uređaj bude napajan i u periodu od nekoliko godina
 - poseduje precizni eksterni oscilator 32,768 kHz koji se koristi u  quartz satovima.
 Pre preuzimanja podataka sa integrisanog kola RTC, mora se inicijalizovati I2C magistala, koja se koristi za komunikaciju.
+
 MQ-3 senzor gasa
+
 MQ-3 senzor gasa je Metal Oxide Semiconductor (MOS) tip senzora koji se u ovom slučaju koristi za očitavanje koncentracije alkohola u vazduhu i ispisivanje iste na UART. Princip rada je baziran na promeni otpornosti. Termin koncenracija gasa se odnosi na opisivanje zapreminske količine gasa u vazduhu. Objašnjenje za ppm: koncenracija jednog gasa (alkohol) u odnosu na drugi (vazduh). Na primer, 500 ppm znači da od milion molekula gasa, 500 molekula je alkohol, a 999500 molekula tog drugog gasa (vazduh). Takodje obezbeđuje analogni naponski signal proporcionalan koncentraciji alkohola koji se konvertuje i prosledjuje na UART.
 Korišćenje MQ-3 senzora gasa:
 Vrednost sa senzora očitavamo na sledeći način:
 void setup() {
+
 	USB.begin();     //setujemo UART
 	USB.println("MQ3 zagrevanje!");
 	delay(20000);    }   //sačekajmo da se senzor dovoljno zagreje   
 void loop() {
+
 	sensorValue = analogRead(ANALOG4);    //čitamo analogni unos sa pina 0
 	USB.print(“Vrednost ocitana sa senzora: ");
 	USB.println(sensorValue);  }
 Upis i čitanje EEPROM-a:
 Primer upisivanja sadržaja u određenu lokaciju:
 {
+
 	Utils.WriteEEPROM(1024, ‘B’);  // upisivanje ascii karaktera ‘B’ u adresu 1024
 }
 Primer iščitavanja sadržaja iz određene lokacije:
+
 {
+
 	uint8_t podatak = Utils.readEEPROM(1024); // iščitava podatak sa adrese 1024
 }
+
 Nakon svakog upisa kritične vrednosti očitane sa senzora, inkrementujemo adresu kako ne bismo overvrajtovali staru vrednost. Takođe je bitno da se ne koriste adrese niže od 512 jer može overvrajtovati konfiguarioni deo memorije mikrokontrolera!
 Rad sa LED diodama:
 Paljenje i gašenje zelene diode izvršavamo sledećim kodom:
+
         Utils.setLED(LED1, LED_ON);
         Utils.setLED(LED1, LED_OFF);
+	
 Paljenje i gašenje crvene diode izvršavamo sledećim kodom:
 
         Utils.setLED(LED0, LED_ON);
         Utils.setLED(LED0, LED_OFF);
-       
+	
 Ukoliko želimo simulirati blinkanje, to činimo ubacivanjem for petlje i delay-ova u kod. 
 
 5.	Koncept rešenja
