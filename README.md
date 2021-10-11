@@ -15,7 +15,7 @@ Za normalna očitavanja će se regularno ispisivati vrednost temperature i konce
 Povezivanje vršimo putem mini USB porta na razvojnom sistemu
 Pre povezivanja potrebno je instalirati potrebne drajvere za komunikaciju putem COM porta.
 
-4.	Detaljan opis svih komponenata uređaja
+4.	Detaljan opis svih komponenata uređaja.
 Za ovaj problem koristimo Waspmote razvojni sistem.
 Waspmote je „open-source“ bežična senzorska platforma osmišljena radi implementacije senzorskih čvorova niske potrošnje u IoT platformi. Platforma je kompletno autonomna i napaja se iz baterijskog izvora...
 Poseduje mogućnost više tipova komunikacije, kao što su GPRS, GSM, WiFi, BlueTooth... 
